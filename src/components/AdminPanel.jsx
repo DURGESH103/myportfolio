@@ -1,0 +1,322 @@
+import { useState } from 'react'
+import { motion } from 'framer-motion'
+import { Plus, Edit, Trash2, Save, Upload } from 'lucide-react'
+import Card from './Card'
+import ImageUpload from './ImageUpload'
+
+const AdminPanel = () => {
+  const [activeTab, setActiveTab] = useState('projects')
+  const [showAddForm, setShowAddForm] = useState(false)
+  const [editingItem, setEditingItem] = useState(null)
+
+  const [projectForm, setProjectForm] = useState({
+    title: '',
+    description: '',
+    technologies: '',
+    githubUrl: '',
+    liveUrl: '',
+    featured: false,
+    images: []
+  })
+
+  const [certForm, setCertForm] = useState({
+    title: '',
+    issuer: '',
+    date: '',
+    description: '',
+    credentialUrl: '',
+    logo: null,
+    certificate: null
+  })
+
+  const handleProjectSubmit = (e) => {
+    e.preventDefault()
+    // Save to localStorage or send to backend
+    const projects = JSON.parse(localStorage.getItem('projects') || '[]')
+    const newProject = {
+      ...projectForm,
+      id: Date.now(),
+      technologies: projectForm.technologies.split(',').map(t => t.trim())
+    }
+    projects.push(newProject)
+    localStorage.setItem('projects', JSON.stringify(projects))
+    setProjectForm({ title: '', description: '', technologies: '', githubUrl: '', liveUrl: '', featured: false, images: [] })
+    setShowAddForm(false)
+  }
+
+  const handleCertSubmit = (e) => {
+    e.preventDefault()
+    const certs = JSON.parse(localStorage.getItem('certifications') || '[]')
+    const newCert = { ...certForm, id: Date.now() }
+    certs.push(newCert)
+    localStorage.setItem('certifications', JSON.stringify(certs))
+    setCertForm({ title: '', issuer: '', date: '', description: '', credentialUrl: '', logo: null, certificate: null })
+    setShowAddForm(false)
+  }
+
+  const handleResumeUpload = (e) => {
+    const file = e.target.files[0]
+    if (file && file.type === 'application/pdf') {
+      const reader = new FileReader()
+      reader.onload = (e) => {
+        localStorage.setItem('resume', e.target.result)
+        alert('Resume uploaded successfully!')
+      }
+      reader.readAsDataURL(file)
+    }
+  }
+
+  return (
+    <div className="min-h-screen pt-24 pb-16 px-4">
+      <div className="max-w-6xl mx-auto">
+        <h1 className="text-3xl font-bold mb-8 gradient-text">Admin Panel</h1>
+
+        {/* Tabs */}
+        <div className="flex space-x-4 mb-8">
+          {['projects', 'certifications', 'resume'].map((tab) => (
+            <button
+              key={tab}
+              onClick={() => setActiveTab(tab)}
+              className={`px-4 py-2 rounded-lg capitalize transition-colors ${
+                activeTab === tab ? 'bg-primary text-black' : 'border border-primary text-primary'
+              }`}
+            >
+              {tab}
+            </button>
+          ))}
+        </div>
+
+        {/* Projects Tab */}
+        {activeTab === 'projects' && (
+          <div>
+            <div className="flex justify-between items-center mb-6">
+              <h2 className="text-2xl font-bold">Manage Projects</h2>
+              <button
+                onClick={() => setShowAddForm(!showAddForm)}
+                className="flex items-center px-4 py-2 bg-primary text-black rounded-lg hover:bg-primary/90 transition-colors"
+              >
+                <Plus className="mr-2" size={20} />
+                Add Project
+              </button>
+            </div>
+
+            {showAddForm && (
+              <motion.div
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="mb-8"
+              >
+                <Card>
+                  <h3 className="text-xl font-bold mb-4">Add New Project</h3>
+                  <form onSubmit={handleProjectSubmit} className="space-y-4">
+                    <input
+                      type="text"
+                      placeholder="Project Title"
+                      value={projectForm.title}
+                      onChange={(e) => setProjectForm({...projectForm, title: e.target.value})}
+                      className="w-full px-4 py-2 rounded-lg bg-white/5 border border-white/10 focus:border-primary focus:outline-none"
+                      required
+                    />
+                    <textarea
+                      placeholder="Project Description"
+                      value={projectForm.description}
+                      onChange={(e) => setProjectForm({...projectForm, description: e.target.value})}
+                      className="w-full px-4 py-2 rounded-lg bg-white/5 border border-white/10 focus:border-primary focus:outline-none"
+                      rows={3}
+                      required
+                    />
+                    <input
+                      type="text"
+                      placeholder="Technologies (comma separated)"
+                      value={projectForm.technologies}
+                      onChange={(e) => setProjectForm({...projectForm, technologies: e.target.value})}
+                      className="w-full px-4 py-2 rounded-lg bg-white/5 border border-white/10 focus:border-primary focus:outline-none"
+                      required
+                    />
+                    <div className="grid md:grid-cols-2 gap-4">
+                      <input
+                        type="url"
+                        placeholder="GitHub URL"
+                        value={projectForm.githubUrl}
+                        onChange={(e) => setProjectForm({...projectForm, githubUrl: e.target.value})}
+                        className="w-full px-4 py-2 rounded-lg bg-white/5 border border-white/10 focus:border-primary focus:outline-none"
+                      />
+                      <input
+                        type="url"
+                        placeholder="Live Demo URL"
+                        value={projectForm.liveUrl}
+                        onChange={(e) => setProjectForm({...projectForm, liveUrl: e.target.value})}
+                        className="w-full px-4 py-2 rounded-lg bg-white/5 border border-white/10 focus:border-primary focus:outline-none"
+                      />
+                    </div>
+                    <label className="flex items-center space-x-2">
+                      <input
+                        type="checkbox"
+                        checked={projectForm.featured}
+                        onChange={(e) => setProjectForm({...projectForm, featured: e.target.checked})}
+                        className="rounded"
+                      />
+                      <span>Featured Project</span>
+                    </label>
+                    <div>
+                      <label className="block text-sm font-medium mb-2">Project Images</label>
+                      <ImageUpload
+                        onImagesChange={(images) => setProjectForm({...projectForm, images})}
+                        existingImages={projectForm.images}
+                        multiple={true}
+                      />
+                    </div>
+                    <div className="flex gap-4">
+                      <button
+                        type="submit"
+                        className="flex items-center px-4 py-2 bg-primary text-black rounded-lg hover:bg-primary/90 transition-colors"
+                      >
+                        <Save className="mr-2" size={16} />
+                        Save Project
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setShowAddForm(false)}
+                        className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                  </form>
+                </Card>
+              </motion.div>
+            )}
+          </div>
+        )}
+
+        {/* Certifications Tab */}
+        {activeTab === 'certifications' && (
+          <div>
+            <div className="flex justify-between items-center mb-6">
+              <h2 className="text-2xl font-bold">Manage Certifications</h2>
+              <button
+                onClick={() => setShowAddForm(!showAddForm)}
+                className="flex items-center px-4 py-2 bg-primary text-black rounded-lg hover:bg-primary/90 transition-colors"
+              >
+                <Plus className="mr-2" size={20} />
+                Add Certification
+              </button>
+            </div>
+
+            {showAddForm && (
+              <motion.div
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="mb-8"
+              >
+                <Card>
+                  <h3 className="text-xl font-bold mb-4">Add New Certification</h3>
+                  <form onSubmit={handleCertSubmit} className="space-y-4">
+                    <input
+                      type="text"
+                      placeholder="Certification Title"
+                      value={certForm.title}
+                      onChange={(e) => setCertForm({...certForm, title: e.target.value})}
+                      className="w-full px-4 py-2 rounded-lg bg-white/5 border border-white/10 focus:border-primary focus:outline-none"
+                      required
+                    />
+                    <div className="grid md:grid-cols-2 gap-4">
+                      <input
+                        type="text"
+                        placeholder="Issuer"
+                        value={certForm.issuer}
+                        onChange={(e) => setCertForm({...certForm, issuer: e.target.value})}
+                        className="w-full px-4 py-2 rounded-lg bg-white/5 border border-white/10 focus:border-primary focus:outline-none"
+                        required
+                      />
+                      <input
+                        type="text"
+                        placeholder="Date (e.g., 2024)"
+                        value={certForm.date}
+                        onChange={(e) => setCertForm({...certForm, date: e.target.value})}
+                        className="w-full px-4 py-2 rounded-lg bg-white/5 border border-white/10 focus:border-primary focus:outline-none"
+                        required
+                      />
+                    </div>
+                    <textarea
+                      placeholder="Description"
+                      value={certForm.description}
+                      onChange={(e) => setCertForm({...certForm, description: e.target.value})}
+                      className="w-full px-4 py-2 rounded-lg bg-white/5 border border-white/10 focus:border-primary focus:outline-none"
+                      rows={3}
+                    />
+                    <input
+                      type="url"
+                      placeholder="Credential URL"
+                      value={certForm.credentialUrl}
+                      onChange={(e) => setCertForm({...certForm, credentialUrl: e.target.value})}
+                      className="w-full px-4 py-2 rounded-lg bg-white/5 border border-white/10 focus:border-primary focus:outline-none"
+                    />
+                    <div className="grid md:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-sm font-medium mb-2">Logo</label>
+                        <ImageUpload
+                          onImagesChange={(images) => setCertForm({...certForm, logo: images[0]})}
+                          existingImages={certForm.logo ? [certForm.logo] : []}
+                          multiple={false}
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium mb-2">Certificate PDF</label>
+                        <input
+                          type="file"
+                          accept=".pdf"
+                          onChange={(e) => setCertForm({...certForm, certificate: e.target.files[0]})}
+                          className="w-full px-4 py-2 rounded-lg bg-white/5 border border-white/10 focus:border-primary focus:outline-none"
+                        />
+                      </div>
+                    </div>
+                    <div className="flex gap-4">
+                      <button
+                        type="submit"
+                        className="flex items-center px-4 py-2 bg-primary text-black rounded-lg hover:bg-primary/90 transition-colors"
+                      >
+                        <Save className="mr-2" size={16} />
+                        Save Certification
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setShowAddForm(false)}
+                        className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                  </form>
+                </Card>
+              </motion.div>
+            )}
+          </div>
+        )}
+
+        {/* Resume Tab */}
+        {activeTab === 'resume' && (
+          <Card>
+            <h2 className="text-2xl font-bold mb-4">Manage Resume</h2>
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium mb-2">Upload Resume (PDF)</label>
+                <input
+                  type="file"
+                  accept=".pdf"
+                  onChange={handleResumeUpload}
+                  className="w-full px-4 py-2 rounded-lg bg-white/5 border border-white/10 focus:border-primary focus:outline-none"
+                />
+              </div>
+              <p className="text-sm opacity-80">
+                Upload your resume in PDF format. It will be available for download on your portfolio.
+              </p>
+            </div>
+          </Card>
+        )}
+      </div>
+    </div>
+  )
+}
+
+export default AdminPanel
