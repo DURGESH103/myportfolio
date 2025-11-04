@@ -24,7 +24,7 @@ const Navbar = ({ darkMode, setDarkMode }) => {
       <div className="max-w-7xl mx-auto px-3 xs:px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-14 xs:h-16">
           <Link to="/" className="text-lg xs:text-xl font-bold gradient-text">
-            Portfolio
+            Durgesh Kumar
           </Link>
 
           {/* Desktop Menu */}

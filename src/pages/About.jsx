@@ -17,42 +17,45 @@ const About = () => {
   const [activeTab, setActiveTab] = useState('story')
 
   const personalInfo = {
-    name: "Deepak Kumar",
+    name: "Durgesh Kumar",
     title: "Full Stack Developer",
     location: "India",
     email: "dkumar11dec2003@gmail.com",
-    phone: "+91 XXX XXX XXXX",
+    phone: "+91 9199832950",
     experience: "2+ Years",
-    projects: "50+",
+    projects: "12+",
     languages: ["English", "Hindi"]
   }
 
   const journey = [
-    {
-      year: "2024",
-      title: "Senior Full Stack Developer",
-      company: "Tech Innovation Co.",
-      description: "Leading development of scalable web applications using React, Node.js, and cloud technologies.",
-      icon: Code,
-      color: "from-blue-500 to-purple-600"
-    },
-    {
-      year: "2023",
-      title: "Full Stack Developer",
-      company: "Digital Solutions Ltd.",
-      description: "Developed and maintained multiple client projects, focusing on performance optimization and user experience.",
-      icon: Zap,
-      color: "from-green-500 to-blue-500"
-    },
-    {
-      year: "2022",
-      title: "Frontend Developer",
-      company: "StartUp Hub",
-      description: "Started my professional journey building responsive web applications and learning modern development practices.",
-      icon: Heart,
-      color: "from-pink-500 to-red-500"
-    }
-  ]
+  {
+    year: "2025",
+    title: "B.Tech (3rd Year)",
+    company: "KL University, Vijayawada, Andhra Pradesh",
+    description:
+      "Currently pursuing Bachelor of Technology with a focus on Full Stack Development, Artificial Intelligence, and Modern Web Technologies.",
+    icon: Code,
+    color: "from-blue-500 to-purple-600"
+  },
+  {
+    year: "2024",
+    title: "B.Tech (2nd Year)",
+    company: "KL University, Vijayawada, Andhra Pradesh",
+    description:
+      "Explored advanced programming concepts, data structures, algorithms, and built multiple academic and personal projects using Django and React.",
+    icon: Zap,
+    color: "from-green-500 to-blue-500"
+  },
+  {
+    year: "2023",
+    title: "B.Tech (1st Year)",
+    company: "KL University, Vijayawada, Andhra Pradesh",
+    description:
+      "Started my engineering journey by learning the fundamentals of computer science, programming, and software development.",
+    icon: Heart,
+    color: "from-pink-500 to-red-500"
+  }
+];
 
   const values = [
     {
@@ -175,25 +178,34 @@ const About = () => {
               <div>
                 <Card className="p-8 md:p-12">
                   <h2 className="text-3xl md:text-4xl font-bold mb-6 bg-gradient-to-r from-primary to-purple-500 bg-clip-text text-transparent">
-                    Hello! I'm Deepak
+                    Hello! I'm Durgesh
                   </h2>
                   <div className="space-y-6 text-gray-700 dark:text-gray-300 leading-relaxed">
-                    <p className="text-lg">
-                      I'm a passionate full-stack developer with a love for creating digital experiences 
-                      that solve real-world problems. My journey in tech started with curiosity and has 
-                      evolved into a career dedicated to building innovative solutions.
-                    </p>
-                    <p>
-                      With over 2 years of experience, I've worked on diverse projects ranging from 
-                      e-commerce platforms to data visualization tools. I believe in writing clean, 
-                      efficient code and creating user interfaces that are both beautiful and functional.
-                    </p>
-                    <p>
-                      When I'm not coding, you'll find me exploring new technologies, contributing to 
-                      open source projects, or sharing knowledge with the developer community. I'm 
-                      always excited to take on new challenges and collaborate with amazing people.
-                    </p>
-                  </div>
+  <p className="text-lg">
+    I'm a passionate <span className="font-semibold text-blue-500">Full Stack Developer</span> 
+    and a <span className="font-semibold">B.Tech 3rd-year student</span> at 
+    <span className="font-semibold"> KL University, Vijayawada, Andhra Pradesh</span>. 
+    My journey in technology began with curiosity and has grown into a strong passion 
+    for building impactful digital experiences.
+  </p>
+
+  <p>
+    Over the past few years, I've gained hands-on experience developing 
+    <span className="font-semibold"> web applications</span>, 
+    <span className="font-semibold"> e-commerce platforms</span>, and 
+    <span className="font-semibold"> AI-powered tools</span> using 
+    modern technologies like <span className="font-semibold">React, Django, Node.js,</span> 
+    and <span className="font-semibold">MongoDB</span>. I believe in writing 
+    <span className="font-semibold"> clean, maintainable code</span> and 
+    crafting <span className="font-semibold">intuitive, responsive user interfaces</span>.
+  </p>
+
+  <p>
+    Beyond coding, I love exploring emerging technologies, working on innovative projects, 
+    and contributing to the developer community. I’m continuously learning, growing, 
+    and preparing to build a meaningful career in software development — one line of code at a time.
+  </p>
+</div>
                 </Card>
               </div>
               

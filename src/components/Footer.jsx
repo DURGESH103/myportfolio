@@ -14,7 +14,7 @@ const Footer = () => {
           <div className="flex items-center space-x-2 text-sm opacity-80">
             <span>Made with</span>
             <Heart size={16} className="text-primary animate-pulse" />
-            <span>by Your Name</span>
+            <span>by Durgesh</span>
           </div>
           
           <div className="flex items-center space-x-6">
@@ -33,7 +33,7 @@ const Footer = () => {
           </div>
           
           <p className="text-sm opacity-80">
-            © 2024 Portfolio. All rights reserved.
+            © 2025 Portfolio. All rights reserved.
           </p>
         </div>
       </div>

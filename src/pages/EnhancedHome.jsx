@@ -24,8 +24,8 @@ const EnhancedHome = () => {
   }, [])
 
   const socialLinks = [
-    { icon: Github, href: 'https://github.com/deepakkumar11dec2003', label: 'GitHub', color: 'hover:text-purple-400', bg: 'hover:bg-purple-500/20' },
-    { icon: Linkedin, href: 'https://linkedin.com/in/deepak-kumar', label: 'LinkedIn', color: 'hover:text-blue-400', bg: 'hover:bg-blue-500/20' },
+    { icon: Github, href: 'https://github.com/DURGESH103', label: 'GitHub', color: 'hover:text-purple-400', bg: 'hover:bg-purple-500/20' },
+    { icon: Linkedin, href: 'https://www.linkedin.com/in/durgesh-kumar-d18/', label: 'LinkedIn', color: 'hover:text-blue-400', bg: 'hover:bg-blue-500/20' },
     { icon: Mail, href: 'mailto:dkumar11dec2003@gmail.com', label: 'Email', color: 'hover:text-red-400', bg: 'hover:bg-red-500/20' },
   ]
 
@@ -134,7 +134,7 @@ const EnhancedHome = () => {
                         animation: 'gradient 3s ease infinite'
                       }}
                     >
-                      Deepak Kumar
+                      Durgesh Kumar
                     </motion.span>
                   </motion.h1>
                 </motion.div>
