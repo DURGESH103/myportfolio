@@ -1,6 +1,8 @@
 import { motion } from 'framer-motion'
 import { Star, Filter, Search } from 'lucide-react'
 import { useState } from 'react'
+import LazyImage from '../components/LazyImage'
+import AnimatedCounter from '../components/AnimatedCounter'
 import SectionTitle from '../components/SectionTitle'
 import ProjectCard from '../components/ProjectCard'
 import { projectsData } from '../data/projectsData'
@@ -180,7 +182,13 @@ const Projects = () => {
                 transition={{ delay: index * 0.1 }}
                 className="p-4 xs:p-6 rounded-2xl bg-white/80 dark:bg-white/5 border border-gray-200 dark:border-white/10 backdrop-blur-sm">
               
-                <div className="text-xl xs:text-2xl md:text-3xl font-bold text-primary mb-2">{stat.number}</div>
+                <div className="text-xl xs:text-2xl md:text-3xl font-bold text-primary mb-2">
+                  {typeof stat.number === 'number' ? (
+                    <AnimatedCounter end={stat.number} />
+                  ) : (
+                    stat.number
+                  )}
+                </div>
                 <div className="text-xs xs:text-sm text-gray-600 dark:text-gray-400 font-medium">{stat.label}</div>
               </motion.div>
             ))}

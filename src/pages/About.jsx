@@ -3,6 +3,7 @@ import { useRef, useState } from 'react'
 import { Code, Heart, Coffee, Zap, Target, Users, Award, BookOpen, MapPin, Calendar, Mail, Phone } from 'lucide-react'
 import Card from '../components/Card'
 import SectionTitle from '../components/SectionTitle'
+import OptimizedImage from '../components/OptimizedImage'
 import { skillsData } from '../data/skillsData'
 
 const About = () => {

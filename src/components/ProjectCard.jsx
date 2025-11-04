@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import { Github, ExternalLink, Eye } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
+import OptimizedImage from './OptimizedImage'
 
 const ProjectCard = ({ project, index }) => {
   const navigate = useNavigate()
@@ -15,11 +16,10 @@ const ProjectCard = ({ project, index }) => {
         <div className="group relative p-6 rounded-xl backdrop-blur-md border dark:bg-white/5 dark:border-white/10 bg-black/5 border-black/10 transition-all duration-300 hover:border-primary/30 hover-glow cursor-pointer h-full hover:scale-105 hover:-rotate-1">
           <div onClick={() => navigate(`/project/${project.id}`)}>
             <div className="relative overflow-hidden rounded-lg mb-4">
-              <img
+              <OptimizedImage
                 src={project.image}
                 alt={project.title}
-                className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-110"
-                loading="lazy"
+                className="w-full h-48 transition-transform duration-300 group-hover:scale-110"
               />
               <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                 <Eye className="text-white" size={32} />

@@ -3,7 +3,9 @@ import { motion } from 'framer-motion'
 import { Mail, Phone, MapPin, Send, CheckCircle } from 'lucide-react'
 import Card from '../components/Card'
 import SectionTitle from '../components/SectionTitle'
-import { sendEmail } from '../components/EmailService'
+import { sendEmail } from '../utils/emailService'
+// import LoadingSpinner from '../components/LoadingSpinner'
+// import Toast from '../components/Toast'
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -14,6 +16,7 @@ const Contact = () => {
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState(null)
+
 
   const contactInfo = [
     { icon: Mail, label: 'Email', value: 'dkumar11dec2003@gmail.com', href: 'mailto:dkumar11dec2003@gmail.com' },
@@ -37,15 +40,29 @@ const Contact = () => {
       await sendEmail(formData)
       setSubmitStatus('success')
       setFormData({ name: '', email: '', subject: '', message: '' })
+      
+      setTimeout(() => {
+        setSubmitStatus(null)
+      }, 5000)
     } catch (error) {
       setSubmitStatus('error')
+      
+      setTimeout(() => {
+        setSubmitStatus(null)
+      }, 5000)
     } finally {
       setIsSubmitting(false)
     }
   }
 
   return (
-    <div className="pt-20 xs:pt-24 pb-12 xs:pb-16 px-3 xs:px-4">
+    <>
+      {isSubmitting && (
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50">
+          <div className="w-12 h-12 border-4 border-primary/30 border-t-primary rounded-full animate-spin" />
+        </div>
+      )}
+      <div className="pt-20 xs:pt-24 pb-12 xs:pb-16 px-3 xs:px-4">
       <div className="max-w-6xl mx-auto">
         <SectionTitle 
           title="Get In Touch" 
@@ -173,6 +190,7 @@ const Contact = () => {
         </div>
       </div>
     </div>
+    </>
   )
 }
 

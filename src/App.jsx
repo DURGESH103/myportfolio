@@ -3,6 +3,9 @@ import { useState, useEffect } from 'react'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import ScrollToTop from './components/ScrollToTop'
+import SmoothScroll from './components/SmoothScroll'
+import ProgressBar from './components/ProgressBar'
+import ErrorBoundary from './components/ErrorBoundary'
 import EnhancedHome from './pages/EnhancedHome'
 import About from './pages/About'
 import Projects from './pages/Projects'
@@ -27,10 +30,12 @@ function App() {
   }, [darkMode])
 
   return (
-    <div className={`min-h-screen transition-colors duration-300 ${
-      darkMode ? 'bg-dark text-text-light' : 'bg-light text-text-dark'
-    }`}>
-      <Router>
+    <ErrorBoundary>
+      <div className={`min-h-screen transition-colors duration-300 ${
+        darkMode ? 'bg-dark text-text-light' : 'bg-light text-text-dark'
+      }`}>
+        <Router>
+        <ProgressBar />
         <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
         <Routes>
           <Route path="/" element={<EnhancedHome />} />
@@ -43,8 +48,10 @@ function App() {
         </Routes>
         <Footer />
         <ScrollToTop />
-      </Router>
-    </div>
+        <SmoothScroll />
+        </Router>
+      </div>
+    </ErrorBoundary>
   )
 }
 
