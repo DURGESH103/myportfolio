@@ -3,9 +3,9 @@ import { motion } from 'framer-motion'
 import { Mail, Phone, MapPin, Send, CheckCircle } from 'lucide-react'
 import Card from '../components/Card'
 import SectionTitle from '../components/SectionTitle'
-import { sendEmail } from '../utils/emailService'
-// import LoadingSpinner from '../components/LoadingSpinner'
-// import Toast from '../components/Toast'
+// import { sendEmail } from '../services/emailService'
+import LoadingSpinner from '../components/LoadingSpinner'
+import Toast from '../components/Toast'
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -16,7 +16,9 @@ const Contact = () => {
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState(null)
-
+  const [showToast, setShowToast] = useState(false)
+  const [toastMessage, setToastMessage] = useState('')
+  const [toastType, setToastType] = useState('success')
 
   const contactInfo = [
     { icon: Mail, label: 'Email', value: 'dkumar11dec2003@gmail.com', href: 'mailto:dkumar11dec2003@gmail.com' },
@@ -37,17 +39,27 @@ const Contact = () => {
     setSubmitStatus(null)
 
     try {
-      await sendEmail(formData)
+      // Simulate email sending for demo
+      await new Promise(resolve => setTimeout(resolve, 2000))
       setSubmitStatus('success')
+      setToastMessage('Message sent successfully! I\'ll get back to you soon.')
+      setToastType('success')
+      setShowToast(true)
       setFormData({ name: '', email: '', subject: '', message: '' })
       
+      // Hide toast after 5 seconds
       setTimeout(() => {
+        setShowToast(false)
         setSubmitStatus(null)
       }, 5000)
     } catch (error) {
       setSubmitStatus('error')
+      setToastMessage('There was an error sending your message. Please try again.')
+      setToastType('error')
+      setShowToast(true)
       
       setTimeout(() => {
+        setShowToast(false)
         setSubmitStatus(null)
       }, 5000)
     } finally {
@@ -57,11 +69,13 @@ const Contact = () => {
 
   return (
     <>
-      {isSubmitting && (
-        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50">
-          <div className="w-12 h-12 border-4 border-primary/30 border-t-primary rounded-full animate-spin" />
-        </div>
-      )}
+      {isSubmitting && <LoadingSpinner />}
+      <Toast 
+        message={toastMessage}
+        type={toastType}
+        isVisible={showToast}
+        onClose={() => setShowToast(false)}
+      />
       <div className="pt-20 xs:pt-24 pb-12 xs:pb-16 px-3 xs:px-4">
       <div className="max-w-6xl mx-auto">
         <SectionTitle 
