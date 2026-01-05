@@ -84,28 +84,28 @@ const EnhancedHome = () => {
       <motion.section 
         ref={heroRef}
         style={{ y, opacity, scale }}
-        className="relative min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8"
+        className="relative min-h-screen flex items-center justify-center px-3 xs:px-4 sm:px-6 lg:px-8"
       >
         <ParticleBackground />
         
-        {/* Simple Background Elements */}
+        {/* Mobile-optimized Background Elements */}
         <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-20 left-10 w-72 h-72 bg-primary/10 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-20 right-10 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl"></div>
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-r from-primary/5 to-purple-500/5 rounded-full blur-3xl"></div>
+          <div className="absolute top-10 xs:top-20 left-5 xs:left-10 w-48 xs:w-72 h-48 xs:h-72 bg-primary/10 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-10 xs:bottom-20 right-5 xs:right-10 w-64 xs:w-96 h-64 xs:h-96 bg-purple-500/10 rounded-full blur-3xl"></div>
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[300px] xs:w-[400px] sm:w-[600px] h-[300px] xs:h-[400px] sm:h-[600px] bg-gradient-to-r from-primary/5 to-purple-500/5 rounded-full blur-3xl"></div>
         </div>
         
-        <div className="max-w-7xl mx-auto z-10 relative">
-          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center min-h-[80vh]">
+        <div className="max-w-7xl mx-auto z-10 relative w-full">
+          <div className="grid lg:grid-cols-2 gap-6 xs:gap-8 lg:gap-12 items-center min-h-[85vh] xs:min-h-[80vh]">
             {/* Left Content */}
             <motion.div
               initial={{ opacity: 0, x: -100 }}
               animate={{ opacity: isLoaded ? 1 : 0, x: isLoaded ? 0 : -100 }}
               transition={{ duration: 1.2, ease: "easeOut" }}
-              className="text-left"
+              className="text-center lg:text-left order-2 lg:order-1"
             >
               {/* Text Content */}
-              <motion.div className="space-y-6 mb-12">
+              <motion.div className="space-y-4 xs:space-y-6 mb-8 xs:mb-12">
                 {/* Greeting */}
                 <motion.div
                   initial={{ opacity: 0, y: 30 }}
@@ -114,13 +114,13 @@ const EnhancedHome = () => {
                   className="relative"
                 >
                   <motion.h1 
-                    className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black mb-4 leading-tight"
+                    className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black mb-3 xs:mb-4 leading-[1.1] xs:leading-tight"
                   >
                     <motion.span 
                       initial={{ opacity: 0, x: -50 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: 0.7, duration: 0.6 }}
-                      className="block text-gray-700 dark:text-gray-300"
+                      className="block text-gray-700 dark:text-gray-300 text-lg xs:text-xl sm:text-2xl md:text-3xl lg:text-4xl font-semibold mb-1 xs:mb-2"
                     >
                       Hi, I'm
                     </motion.span>
@@ -146,15 +146,14 @@ const EnhancedHome = () => {
                   transition={{ delay: 1.1, duration: 0.6 }}
                   className="relative"
                 >
-                  <h2 className="text-base xs:text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold mb-4 text-gray-700 dark:text-gray-200">
-                    Full Stack Developer & Digital Innovator
+                  <h2 className="text-lg xs:text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-3 xs:mb-4 text-gray-700 dark:text-gray-200">
+                    Full Stack Developer
                   </h2>
-                  <div className="flex items-center gap-2 mb-6">
-                    <Sparkles className="text-primary animate-pulse" size={20} />
-                    <span className="text-sm md:text-base text-gray-600 dark:text-gray-400 font-medium">
-                      Crafting the future, one line of code at a time
+                  <div className="flex items-center justify-center lg:justify-start gap-2 mb-4 xs:mb-6">
+                    
+                    <span className="text-xs xs:text-sm md:text-base text-gray-600 dark:text-gray-400 font-medium text-center lg:text-left">
                     </span>
-                    <Sparkles className="text-primary animate-pulse" size={20} />
+                    
                   </div>
                 </motion.div>
 
@@ -163,7 +162,7 @@ const EnhancedHome = () => {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 1.3, duration: 0.8 }}
-                  className="flex flex-wrap gap-2 sm:gap-3 mb-8"
+                  className="flex flex-wrap justify-center lg:justify-start gap-2 sm:gap-3 mb-6 xs:mb-8"
                 >
                   {['React ⚛️', 'Node.js 🟢', 'Python 🐍', 'AWS ☁️', 'MongoDB 🍃'].map((tech, index) => (
                     <motion.span
@@ -176,7 +175,7 @@ const EnhancedHome = () => {
                         rotate: Math.random() * 10 - 5,
                         boxShadow: '0 10px 30px rgba(0, 255, 153, 0.3)'
                       }}
-                      className="px-3 py-2 sm:px-4 sm:py-2 bg-gradient-to-r from-primary/20 to-emerald-500/20 backdrop-blur-sm border border-primary/30 rounded-full text-xs sm:text-sm font-medium hover:shadow-lg transition-all duration-300 cursor-pointer"
+                      className="px-2.5 py-1.5 xs:px-3 xs:py-2 sm:px-4 sm:py-2 bg-gradient-to-r from-primary/20 to-emerald-500/20 backdrop-blur-sm border border-primary/30 rounded-full text-xs sm:text-sm font-medium hover:shadow-lg transition-all duration-300 cursor-pointer"
                     >
                       {tech}
                     </motion.span>
@@ -189,10 +188,9 @@ const EnhancedHome = () => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 1.8, duration: 0.8 }}
-                className="text-sm xs:text-base sm:text-lg md:text-xl mb-8 lg:mb-12 text-gray-600 dark:text-gray-300 leading-relaxed">
+                className="text-sm xs:text-base sm:text-lg md:text-xl mb-6 xs:mb-8 lg:mb-12 text-gray-600 dark:text-gray-300 leading-relaxed text-center lg:text-left max-w-lg mx-auto lg:mx-0">
               
-                Transforming complex problems into elegant digital solutions. I blend creativity with 
-                cutting-edge technology to build experiences that users love and businesses need.
+                Transforming complex problems into elegant digital solutions.
               </motion.p>
 
               {/* CTA Buttons */}
@@ -200,18 +198,18 @@ const EnhancedHome = () => {
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 2, duration: 0.8 }}
-                className="flex flex-col xs:flex-row gap-3 xs:gap-4 sm:gap-6 mb-8 lg:mb-12">
+                className="flex flex-col xs:flex-row gap-3 xs:gap-4 sm:gap-6 mb-6 xs:mb-8 lg:mb-12 justify-center lg:justify-start">
               
                 <motion.button
                   onClick={scrollToProjects}
                   whileHover={{ scale: 1.05, boxShadow: '0 20px 40px rgba(0, 255, 153, 0.3)' }}
                   whileTap={{ scale: 0.95 }}
-                  className="group relative px-4 xs:px-6 sm:px-8 py-2.5 xs:py-3 sm:py-4 bg-gradient-to-r from-primary via-emerald-400 to-cyan-400 text-black font-bold rounded-2xl overflow-hidden shadow-2xl transition-all duration-300">
+                  className="group relative px-5 xs:px-6 sm:px-8 py-3 xs:py-3.5 sm:py-4 bg-gradient-to-r from-primary via-emerald-400 to-cyan-400 text-black font-bold rounded-2xl overflow-hidden shadow-2xl transition-all duration-300 w-full xs:w-auto">
                 
-                  <span className="relative flex items-center justify-center text-sm sm:text-base">
-                    <Rocket className="mr-2 group-hover:animate-bounce" size={20} />
+                  <span className="relative flex items-center justify-center text-sm xs:text-base">
+                    <Rocket className="mr-2 group-hover:animate-bounce" size={18} />
                     View My Work
-                    <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={20} />
+                    <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={18} />
                   </span>
                 </motion.button>
                 
@@ -220,10 +218,10 @@ const EnhancedHome = () => {
                   download
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="group px-4 xs:px-6 sm:px-8 py-2.5 xs:py-3 sm:py-4 border-2 border-primary/50 text-primary rounded-2xl font-bold hover:bg-primary hover:text-black transition-all duration-300 backdrop-blur-sm text-xs xs:text-sm sm:text-base">
+                  className="group px-5 xs:px-6 sm:px-8 py-3 xs:py-3.5 sm:py-4 border-2 border-primary/50 text-primary rounded-2xl font-bold hover:bg-primary hover:text-black transition-all duration-300 backdrop-blur-sm text-sm xs:text-base w-full xs:w-auto">
                 
                   <span className="flex items-center justify-center">
-                    <Download className="mr-2 group-hover:animate-bounce" size={20} />
+                    <Download className="mr-2 group-hover:animate-bounce" size={18} />
                     Download Resume
                   </span>
                 </motion.a>
@@ -234,7 +232,7 @@ const EnhancedHome = () => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 2.2, duration: 0.8 }}
-                className="flex space-x-3 xs:space-x-4 sm:space-x-6">
+                className="flex justify-center lg:justify-start space-x-4 xs:space-x-5 sm:space-x-6">
               
                 {socialLinks.map(({ icon: Icon, href, label, color, bg }, index) => (
                   <motion.a
@@ -246,15 +244,15 @@ const EnhancedHome = () => {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 2.4 + index * 0.1 }}
                     whileHover={{ 
-                      scale: 1.2, 
+                      scale: 1.15, 
                       y: -5,
                       boxShadow: '0 15px 35px rgba(0, 255, 153, 0.2)'
                     }}
                     whileTap={{ scale: 0.9 }}
-                    className={`p-2.5 xs:p-3 sm:p-4 rounded-2xl border border-white/20 backdrop-blur-sm hover:border-primary/50 transition-all duration-300 ${color} ${bg}`}
+                    className={`p-3 xs:p-3.5 sm:p-4 rounded-2xl border border-white/20 backdrop-blur-sm hover:border-primary/50 transition-all duration-300 ${color} ${bg}`}
                     aria-label={label}
                   >
-                    <Icon size={18} className="xs:w-5 xs:h-5 sm:w-6 sm:h-6" />
+                    <Icon size={20} className="xs:w-5 xs:h-5 sm:w-6 sm:h-6" />
                   </motion.a>
                 ))}
               </motion.div>
@@ -265,7 +263,7 @@ const EnhancedHome = () => {
               initial={{ opacity: 0, x: 100 }}
               animate={{ opacity: isLoaded ? 1 : 0, x: isLoaded ? 0 : 100 }}
               transition={{ duration: 1.2, ease: "easeOut", delay: 0.3 }}
-              className="flex justify-center lg:justify-end order-first lg:order-last">
+              className="flex justify-center lg:justify-end order-1 lg:order-2 mb-6 xs:mb-8 lg:mb-0">
             
               <motion.div
                 initial={{ scale: 0, rotate: -180 }}
@@ -273,7 +271,7 @@ const EnhancedHome = () => {
                 transition={{ delay: 0.6, type: "spring", stiffness: 200, damping: 20 }}
                 className="relative"
               >
-                <div className="relative w-48 h-48 xs:w-56 xs:h-56 sm:w-64 sm:h-64 md:w-80 md:h-80 lg:w-96 lg:h-96">
+                <div className="relative w-56 h-56 xs:w-64 xs:h-64 sm:w-72 sm:h-72 md:w-80 md:h-80 lg:w-96 lg:h-96">
                   {/* Animated Ring */}
                   <motion.div 
                     animate={{ rotate: 360 }}
@@ -281,7 +279,7 @@ const EnhancedHome = () => {
                     className="absolute inset-0 rounded-full"
                     style={{
                       background: 'conic-gradient(from 0deg, #00FF99, #00CC7A, #009966, #00FF99)',
-                      padding: '4px'
+                      padding: '3px xs:4px'
                     }}
                   >
                     <div className="w-full h-full rounded-full bg-white dark:bg-dark"></div>
@@ -299,14 +297,14 @@ const EnhancedHome = () => {
                   <motion.div
                     animate={{ y: [-10, 10, -10], rotate: [0, 5, 0] }}
                     transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                    className="absolute -top-4 -right-4 w-12 h-12 bg-gradient-to-r from-primary to-emerald-400 rounded-full flex items-center justify-center text-black font-bold text-lg shadow-lg"
+                    className="absolute -top-3 xs:-top-4 -right-3 xs:-right-4 w-10 h-10 xs:w-12 xs:h-12 bg-gradient-to-r from-primary to-emerald-400 rounded-full flex items-center justify-center text-black font-bold text-base xs:text-lg shadow-lg"
                   >
                     ⚡
                   </motion.div>
                   <motion.div
                     animate={{ y: [10, -10, 10], rotate: [0, -5, 0] }}
                     transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-                    className="absolute -bottom-4 -left-4 w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center text-white font-bold text-lg shadow-lg"
+                    className="absolute -bottom-3 xs:-bottom-4 -left-3 xs:-left-4 w-10 h-10 xs:w-12 xs:h-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center text-white font-bold text-base xs:text-lg shadow-lg"
                   >
                     🚀
                   </motion.div>
@@ -316,20 +314,7 @@ const EnhancedHome = () => {
           </div>
         </div>
 
-        {/* Scroll Indicator */}
-        <motion.div
-          animate={{ y: [0, -15, 0] }}
-          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10"
-        >
-          <div className="w-6 h-10 border-2 border-primary/60 rounded-full flex justify-center backdrop-blur-sm">
-            <motion.div
-              animate={{ y: [0, 12, 0] }}
-              transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-              className="w-1 h-3 bg-primary rounded-full mt-2"
-            />
-          </div>
-        </motion.div>
+
       </motion.section>
 
       {/* Stats Section */}
