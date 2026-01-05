@@ -288,7 +288,7 @@ const EnhancedHome = () => {
                   {/* Profile Image */}
                   <motion.img
                     whileHover={{ scale: 1.05 }}
-                    src="https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+                    src="/images/profile/profile.jpg"
                     alt="Durgesh Kumar"
                     className="relative w-full h-full rounded-full object-cover border-4 border-transparent shadow-2xl z-10"
                   />

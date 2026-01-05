@@ -116,7 +116,7 @@ const About = () => {
               className="absolute inset-0 bg-gradient-to-r from-primary/20 to-purple-500/20 blur-3xl rounded-full"
             />
             <img
-              src="https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+              src="/images/profile/profile.jpg"
               alt="Durgesh Kumar"
               className="relative w-48 h-48 md:w-64 md:h-64 rounded-full object-cover border-4 border-primary/30 shadow-2xl mx-auto"
             />
