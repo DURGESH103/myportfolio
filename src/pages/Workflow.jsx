@@ -327,15 +327,15 @@ const Workflow = () => {
             {/* Slider Container */}
             <div 
               className="flex transition-transform duration-500 ease-in-out"
-              style={{ transform: `translateX(-${currentSlide * (100 / 3)}%)` }}
+              style={{ transform: `translateX(-${currentSlide * (100 / (window.innerWidth < 640 ? 1 : window.innerWidth < 1024 ? 2 : 3))}%)` }}
               onMouseEnter={() => setIsAutoPlaying(false)}
               onMouseLeave={() => setIsAutoPlaying(true)}
             >
               {featuredProjects.map((project, index) => (
-                <div key={index} className="w-1/3 flex-shrink-0 px-3">
-                  <Card className="p-0 overflow-hidden hover-lift h-full">
+                <div key={index} className="w-full sm:w-1/2 lg:w-1/3 flex-shrink-0 px-2 sm:px-3">
+                  <Card className="p-0 overflow-hidden hover-lift h-full group">
                     {/* Project Images */}
-                    <div className="relative h-48 overflow-hidden">
+                    <div className="relative h-32 sm:h-40 lg:h-48 overflow-hidden">
                       <div className="grid grid-cols-3 h-full">
                         {project.images.map((image, imgIndex) => (
                           <motion.div
@@ -353,7 +353,7 @@ const Workflow = () => {
                               }}
                             />
                             <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                              <Eye className="text-white" size={20} />
+                              <Eye className="text-white" size={16} />
                             </div>
                           </motion.div>
                         ))}
@@ -379,20 +379,20 @@ const Workflow = () => {
                     </div>
                     
                     {/* Project Info */}
-                    <div className="p-6">
-                      <h3 className="text-xl font-bold text-gray-800 dark:text-white mb-2">
+                    <div className="p-3 sm:p-4 lg:p-6">
+                      <h3 className="text-sm sm:text-base lg:text-xl font-bold text-gray-800 dark:text-white mb-2">
                         {project.name}
                       </h3>
-                      <p className="text-gray-600 dark:text-gray-400 text-sm mb-4 line-clamp-2">
+                      <p className="text-gray-600 dark:text-gray-400 text-xs sm:text-sm mb-3 sm:mb-4 line-clamp-2">
                         {project.description}
                       </p>
                       
                       {/* Tech Stack */}
-                      <div className="flex flex-wrap gap-2 mb-4">
+                      <div className="flex flex-wrap gap-1 sm:gap-2 mb-3 sm:mb-4">
                         {project.tech.map((tech, techIndex) => (
                           <span
                             key={techIndex}
-                            className="px-2 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 text-xs rounded-md"
+                            className="px-1.5 sm:px-2 py-0.5 sm:py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 text-xs rounded-md"
                           >
                             {tech}
                           </span>
@@ -406,10 +406,10 @@ const Workflow = () => {
                         rel="noopener noreferrer"
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
-                        className="w-full inline-flex items-center justify-center px-4 py-2 bg-gradient-to-r from-primary to-purple-500 text-white font-medium rounded-lg hover:shadow-lg transition-all"
+                        className="w-full inline-flex items-center justify-center px-3 sm:px-4 py-2 bg-gradient-to-r from-primary to-purple-500 text-white font-medium rounded-lg hover:shadow-lg transition-all text-xs sm:text-sm"
                       >
                         <span>Visit Project</span>
-                        <ExternalLink className="ml-2" size={16} />
+                        <ExternalLink className="ml-1 sm:ml-2" size={14} />
                       </motion.a>
                     </div>
                   </Card>

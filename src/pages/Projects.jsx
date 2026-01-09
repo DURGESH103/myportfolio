@@ -12,6 +12,7 @@ const Projects = () => {
   const [searchTerm, setSearchTerm] = useState('')
   const [viewMode, setViewMode] = useState('grid')
   const [selectedProject, setSelectedProject] = useState(null)
+  const [currentImageIndex, setCurrentImageIndex] = useState(0)
   
   const categories = ['all', 'frontend', 'fullstack', 'mobile', 'ui/ux']
   
@@ -24,6 +25,27 @@ const Projects = () => {
 
   const featuredProjects = filteredProjects.filter(project => project.featured)
   const otherProjects = filteredProjects.filter(project => !project.featured)
+
+  const openProjectModal = (project) => {
+    setSelectedProject(project)
+    setCurrentImageIndex(0)
+  }
+
+  const closeProjectModal = () => {
+    setSelectedProject(null)
+  }
+
+  const nextImage = () => {
+    if (selectedProject && selectedProject.images) {
+      setCurrentImageIndex(prev => (prev + 1) % selectedProject.images.length)
+    }
+  }
+
+  const prevImage = () => {
+    if (selectedProject && selectedProject.images) {
+      setCurrentImageIndex(prev => (prev - 1 + selectedProject.images.length) % selectedProject.images.length)
+    }
+  }
 
   return (
     <div className="min-h-screen pt-16 xs:pt-20 pb-12 xs:pb-16">
@@ -163,7 +185,9 @@ const Projects = () => {
                     transition={{ delay: index * 0.1, duration: 0.6 }}
                   >
                     {viewMode === 'grid' ? (
-                      <ProjectCard project={project} index={index} featured={true} />
+                      <div onClick={() => openProjectModal(project)}>
+                        <ProjectCard project={project} index={index} featured={true} />
+                      </div>
                     ) : (
                       <div className="flex flex-col sm:flex-row gap-6 p-6 bg-white/60 dark:bg-gray-800/60 rounded-2xl border border-gray-200 dark:border-gray-700 hover:border-primary/50 transition-all duration-300 group">
                         <div className="sm:w-1/3 flex-shrink-0">
@@ -246,7 +270,9 @@ const Projects = () => {
                     transition={{ delay: index * 0.05, duration: 0.6 }}
                   >
                     {viewMode === 'grid' ? (
-                      <ProjectCard project={project} index={index} />
+                      <div onClick={() => openProjectModal(project)}>
+                        <ProjectCard project={project} index={index} />
+                      </div>
                     ) : (
                       <div className="flex flex-col sm:flex-row gap-4 p-4 bg-white/40 dark:bg-gray-800/40 rounded-xl border border-gray-200 dark:border-gray-700 hover:border-primary/50 transition-all duration-300 group">
                         <div className="sm:w-1/4 flex-shrink-0">

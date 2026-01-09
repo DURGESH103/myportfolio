@@ -1,9 +1,337 @@
 import { motion, useScroll, useTransform, useInView } from 'framer-motion'
-import { ArrowRight, Download, Github, Linkedin, Mail, Code, Briefcase, Award, Coffee, Star, Zap, Heart, Sparkles, Rocket, Globe } from 'lucide-react'
+import { ArrowRight, Download, Github, Linkedin, Mail, Code, Briefcase, Award, Coffee, Star, Zap, Heart, Sparkles, Rocket, Globe, ExternalLink, ChevronLeft, ChevronRight, Eye } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { useRef, useState, useEffect } from 'react'
 import ParticleBackground from '../components/ParticleBackground'
 import Card from '../components/Card'
+
+// Featured Projects Slider Component
+const FeaturedProjectsSlider = () => {
+  const [currentSlide, setCurrentSlide] = useState(0)
+  const [isAutoPlaying, setIsAutoPlaying] = useState(true)
+  
+  const featuredProjects = [
+    {
+      id: 1,
+      title: "E-commerce Platform",
+      description: "Full-stack e-commerce solution with payment integration and real-time inventory management",
+      image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&h=400&fit=crop",
+      images: [
+        "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&h=600&fit=crop",
+        "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=800&h=600&fit=crop",
+        "https://images.unsplash.com/photo-1472851294608-062f824d29cc?w=800&h=600&fit=crop"
+      ],
+      technologies: ["React", "Node.js", "MongoDB", "Stripe"],
+      githubUrl: "https://github.com",
+      liveUrl: "https://demo.com",
+      category: "Web Application"
+    },
+    {
+      id: 2,
+      title: "Task Management App",
+      description: "Collaborative project management tool with real-time updates and team collaboration features",
+      image: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=600&h=400&fit=crop",
+      images: [
+        "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=800&h=600&fit=crop",
+        "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&h=600&fit=crop",
+        "https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?w=800&h=600&fit=crop"
+      ],
+      technologies: ["Vue.js", "Express", "PostgreSQL", "Socket.io"],
+      githubUrl: "https://github.com",
+      liveUrl: "https://demo.com",
+      category: "Productivity"
+    },
+    {
+      id: 3,
+      title: "Social Media Dashboard",
+      description: "Analytics dashboard for social media management with comprehensive reporting and insights",
+      image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=400&fit=crop",
+      images: [
+        "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop",
+        "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop",
+        "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=800&h=600&fit=crop"
+      ],
+      technologies: ["React", "Python", "Redis", "Chart.js"],
+      githubUrl: "https://github.com",
+      liveUrl: "https://demo.com",
+      category: "Analytics"
+    },
+    {
+      id: 4,
+      title: "Healthcare Platform",
+      description: "Patient management system with appointment scheduling and telemedicine capabilities",
+      image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?w=600&h=400&fit=crop",
+      images: [
+        "https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?w=800&h=600&fit=crop",
+        "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=800&h=600&fit=crop",
+        "https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=800&h=600&fit=crop"
+      ],
+      technologies: ["Angular", "Spring Boot", "MySQL", "WebRTC"],
+      githubUrl: "https://github.com",
+      liveUrl: "https://demo.com",
+      category: "Healthcare"
+    },
+    {
+      id: 5,
+      title: "Learning Management System",
+      description: "Online education platform with video streaming and interactive learning modules",
+      image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600&h=400&fit=crop",
+      images: [
+        "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&h=600&fit=crop",
+        "https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=800&h=600&fit=crop",
+        "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=800&h=600&fit=crop"
+      ],
+      technologies: ["React", "Django", "AWS", "FFmpeg"],
+      githubUrl: "https://github.com",
+      liveUrl: "https://demo.com",
+      category: "Education"
+    }
+  ]
+
+  // Auto-slide functionality
+  useEffect(() => {
+    if (!isAutoPlaying) return
+    const interval = setInterval(() => {
+      setCurrentSlide(prev => (prev + 1) % featuredProjects.length)
+    }, 4000)
+    return () => clearInterval(interval)
+  }, [isAutoPlaying, featuredProjects.length])
+
+  const nextSlide = () => {
+    setCurrentSlide(prev => (prev + 1) % featuredProjects.length)
+    setIsAutoPlaying(false)
+  }
+
+  const prevSlide = () => {
+    setCurrentSlide(prev => (prev - 1 + featuredProjects.length) % featuredProjects.length)
+    setIsAutoPlaying(false)
+  }
+
+  const getSlidesToShow = () => {
+    if (typeof window !== 'undefined') {
+      if (window.innerWidth < 640) return 1
+      if (window.innerWidth < 1024) return 2
+      return 3
+    }
+    return 3
+  }
+
+  const [slidesToShow, setSlidesToShow] = useState(getSlidesToShow())
+
+  useEffect(() => {
+    const handleResize = () => {
+      setSlidesToShow(getSlidesToShow())
+    }
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
+
+  return (
+    <div className="relative overflow-hidden">
+      {/* Slider Container */}
+      <div 
+        className="flex transition-transform duration-500 ease-in-out"
+        style={{ transform: `translateX(-${currentSlide * (100 / slidesToShow)}%)` }}
+        onMouseEnter={() => setIsAutoPlaying(false)}
+        onMouseLeave={() => setIsAutoPlaying(true)}
+      >
+        {featuredProjects.map((project, index) => (
+          <div key={project.id} className="w-full sm:w-1/2 lg:w-1/3 flex-shrink-0 px-2 sm:px-3">
+            <motion.div
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.1 }}
+              whileHover={{ y: -10, scale: 1.02 }}
+              className="group"
+            >
+              <Card className="p-0 overflow-hidden h-full group relative">
+                {/* Modern Gradient Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-purple-500/5 to-pink-500/5 opacity-0 group-hover:opacity-100 transition-all duration-500 z-10"></div>
+                
+                {/* Project Image */}
+                <div className="relative h-48 sm:h-56 overflow-hidden">
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    className="w-full h-full object-cover transition-all duration-500 group-hover:scale-110 group-hover:brightness-110"
+                  />
+                  
+                  {/* Modern Overlay with Glassmorphism */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-all duration-300"></div>
+                  
+                  {/* Floating Action Buttons */}
+                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300">
+                    <div className="flex gap-3">
+                      <motion.a
+                        href={project.githubUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        whileHover={{ scale: 1.1, rotate: 5 }}
+                        whileTap={{ scale: 0.9 }}
+                        className="p-3 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 hover:bg-white/20 transition-all duration-300 shadow-lg"
+                      >
+                        <Github className="text-white" size={20} />
+                      </motion.a>
+                      <motion.a
+                        href={project.liveUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        whileHover={{ scale: 1.1, rotate: -5 }}
+                        whileTap={{ scale: 0.9 }}
+                        className="p-3 bg-primary/20 backdrop-blur-md rounded-2xl border border-primary/30 hover:bg-primary/30 transition-all duration-300 shadow-lg"
+                      >
+                        <ExternalLink className="text-white" size={20} />
+                      </motion.a>
+                    </div>
+                  </div>
+                  
+                  {/* Modern Category Badge */}
+                  <div className="absolute top-4 left-4 z-20">
+                    <motion.span 
+                      whileHover={{ scale: 1.05 }}
+                      className="px-3 py-1.5 bg-gradient-to-r from-primary via-emerald-400 to-cyan-400 text-black text-xs font-bold rounded-full shadow-lg backdrop-blur-sm border border-white/20"
+                    >
+                      {project.category}
+                    </motion.span>
+                  </div>
+                  
+                  {/* Modern Status Indicator */}
+                  <div className="absolute top-4 right-4 z-20">
+                    <div className="w-3 h-3 bg-green-400 rounded-full shadow-lg animate-pulse"></div>
+                  </div>
+                </div>
+                
+                {/* Modern Project Info */}
+                <div className="p-4 sm:p-6 relative">
+                  {/* Background Pattern */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-gray-50/50 to-white/50 dark:from-gray-800/50 dark:to-gray-900/50 rounded-b-xl"></div>
+                  
+                  <div className="relative z-10">
+                    {/* Title with Modern Typography */}
+                    <div className="flex items-start justify-between mb-3">
+                      <h3 className="text-lg sm:text-xl font-bold bg-gradient-to-r from-gray-800 to-gray-600 dark:from-white dark:to-gray-300 bg-clip-text text-transparent group-hover:from-primary group-hover:to-purple-500 transition-all duration-300">
+                        {project.title}
+                      </h3>
+                      <motion.div
+                        whileHover={{ rotate: 180 }}
+                        className="p-1.5 rounded-full bg-gradient-to-r from-primary/10 to-purple-500/10 group-hover:from-primary/20 group-hover:to-purple-500/20 transition-all duration-300"
+                      >
+                        <Star className="text-primary" size={14} />
+                      </motion.div>
+                    </div>
+                    
+                    {/* Description with Modern Styling */}
+                    <p className="text-gray-600 dark:text-gray-400 text-sm mb-4 line-clamp-2 leading-relaxed">
+                      {project.description}
+                    </p>
+                    
+                    {/* Modern Tech Stack */}
+                    <div className="flex flex-wrap gap-2 mb-5">
+                      {project.technologies.slice(0, 3).map((tech, techIndex) => (
+                        <motion.span
+                          key={techIndex}
+                          whileHover={{ scale: 1.05, y: -2 }}
+                          className="px-3 py-1.5 bg-gradient-to-r from-gray-100 to-gray-200 dark:from-gray-700 dark:to-gray-800 text-gray-700 dark:text-gray-300 text-xs font-medium rounded-full border border-gray-200 dark:border-gray-600 hover:border-primary/50 transition-all duration-300 shadow-sm"
+                        >
+                          {tech}
+                        </motion.span>
+                      ))}
+                      {project.technologies.length > 3 && (
+                        <motion.span 
+                          whileHover={{ scale: 1.05 }}
+                          className="px-3 py-1.5 bg-gradient-to-r from-primary/20 to-purple-500/20 text-primary text-xs font-bold rounded-full border border-primary/30 shadow-sm"
+                        >
+                          +{project.technologies.length - 3}
+                        </motion.span>
+                      )}
+                    </div>
+                    
+                    {/* Modern Action Buttons */}
+                    <div className="flex gap-3">
+                      <motion.a
+                        href={project.githubUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        whileHover={{ scale: 1.02, y: -2 }}
+                        whileTap={{ scale: 0.98 }}
+                        className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 bg-gradient-to-r from-gray-100 to-gray-200 dark:from-gray-700 dark:to-gray-800 text-gray-700 dark:text-gray-300 rounded-xl border border-gray-200 dark:border-gray-600 hover:border-primary/50 hover:from-primary/10 hover:to-purple-500/10 hover:text-primary transition-all duration-300 text-sm font-medium shadow-sm"
+                      >
+                        <Github size={16} />
+                        <span>Code</span>
+                      </motion.a>
+                      <motion.a
+                        href={project.liveUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        whileHover={{ scale: 1.02, y: -2, boxShadow: '0 10px 30px rgba(99, 102, 241, 0.3)' }}
+                        whileTap={{ scale: 0.98 }}
+                        className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 bg-gradient-to-r from-primary via-emerald-400 to-cyan-400 text-black rounded-xl font-bold shadow-lg hover:shadow-xl transition-all duration-300 text-sm"
+                      >
+                        <ExternalLink size={16} />
+                        <span>Live</span>
+                      </motion.a>
+                    </div>
+                  </div>
+                </div>
+              </Card>
+            </motion.div>
+          </div>
+        ))}
+      </div>
+      
+      {/* Modern Navigation Arrows */}
+      <motion.button
+        onClick={prevSlide}
+        whileHover={{ scale: 1.1, x: -5 }}
+        whileTap={{ scale: 0.9 }}
+        className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 p-3 sm:p-4 bg-gradient-to-r from-white/90 to-gray-100/90 dark:from-gray-800/90 dark:to-gray-900/90 rounded-2xl shadow-xl backdrop-blur-md border border-white/20 dark:border-gray-700/50 hover:shadow-2xl hover:border-primary/30 transition-all duration-300 z-10 group"
+      >
+        <ChevronLeft className="text-gray-700 dark:text-gray-300 group-hover:text-primary transition-colors" size={20} />
+      </motion.button>
+      <motion.button
+        onClick={nextSlide}
+        whileHover={{ scale: 1.1, x: 5 }}
+        whileTap={{ scale: 0.9 }}
+        className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 p-3 sm:p-4 bg-gradient-to-r from-white/90 to-gray-100/90 dark:from-gray-800/90 dark:to-gray-900/90 rounded-2xl shadow-xl backdrop-blur-md border border-white/20 dark:border-gray-700/50 hover:shadow-2xl hover:border-primary/30 transition-all duration-300 z-10 group"
+      >
+        <ChevronRight className="text-gray-700 dark:text-gray-300 group-hover:text-primary transition-colors" size={20} />
+      </motion.button>
+      
+      {/* Modern Dots Indicator */}
+      <div className="flex justify-center mt-6 sm:mt-8 space-x-3">
+        {featuredProjects.map((_, index) => (
+          <motion.button
+            key={index}
+            onClick={() => {
+              setCurrentSlide(index)
+              setIsAutoPlaying(false)
+            }}
+            whileHover={{ scale: 1.2 }}
+            whileTap={{ scale: 0.9 }}
+            className={`relative transition-all duration-300 ${
+              index === currentSlide 
+                ? 'w-8 h-3' 
+                : 'w-3 h-3'
+            }`}
+          >
+            <div className={`w-full h-full rounded-full transition-all duration-300 ${
+              index === currentSlide 
+                ? 'bg-gradient-to-r from-primary via-emerald-400 to-cyan-400 shadow-lg' 
+                : 'bg-gray-300 dark:bg-gray-600 hover:bg-gray-400 dark:hover:bg-gray-500'
+            }`} />
+            {index === currentSlide && (
+              <motion.div
+                layoutId="activeIndicator"
+                className="absolute inset-0 rounded-full bg-gradient-to-r from-primary via-emerald-400 to-cyan-400 opacity-50 blur-sm"
+              />
+            )}
+          </motion.button>
+        ))}
+      </div>
+    </div>
+  )
+}
 
 const EnhancedHome = () => {
   const ref = useRef(null)
@@ -473,18 +801,30 @@ const EnhancedHome = () => {
       {/* Projects Preview */}
       <section id="projects" className="py-12 xs:py-16 sm:py-20 px-3 xs:px-4 relative">
         <div className="absolute inset-0 bg-gradient-to-l from-primary/5 via-transparent to-purple-500/5"></div>
-        <div className="max-w-6xl mx-auto text-center relative">
+        <div className="max-w-7xl mx-auto relative">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
+            className="text-center mb-12"
           >
             <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-6 bg-gradient-to-r from-primary to-purple-500 bg-clip-text text-transparent">
               Featured Projects
             </h2>
-            <p className="text-sm xs:text-base sm:text-lg md:text-xl text-gray-600 dark:text-gray-400 mb-8 xs:mb-12 max-w-3xl mx-auto px-2">
+            <p className="text-sm xs:text-base sm:text-lg md:text-xl text-gray-600 dark:text-gray-400 mb-8 max-w-3xl mx-auto">
               Discover my latest work and creative solutions that push boundaries
             </p>
+          </motion.div>
+
+          {/* Featured Projects Slider */}
+          <FeaturedProjectsSlider />
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mt-12"
+          >
             <Link
               to="/projects"
               className="inline-flex items-center px-4 xs:px-6 sm:px-8 py-2.5 xs:py-3 sm:py-4 bg-gradient-to-r from-primary to-emerald-400 text-black font-bold rounded-2xl hover:shadow-2xl hover:shadow-primary/25 transition-all duration-300 text-xs xs:text-sm sm:text-base"
