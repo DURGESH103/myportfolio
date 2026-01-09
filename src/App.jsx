@@ -12,6 +12,7 @@ import Projects from './pages/Projects'
 import ProjectDetails from './pages/ProjectDetails'
 import Certifications from './pages/Certifications'
 import Contact from './pages/Contact'
+import Workflow from './pages/Workflow'
 import AdminPanel from './components/AdminPanel'
 
 function App() {
@@ -43,6 +44,7 @@ function App() {
           <Route path="/projects" element={<Projects />} />
           <Route path="/project/:id" element={<ProjectDetails />} />
           <Route path="/certifications" element={<Certifications />} />
+          <Route path="/workflow" element={<Workflow />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/admin" element={<AdminPanel />} />
         </Routes>

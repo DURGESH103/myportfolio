@@ -36,6 +36,13 @@ const EnhancedHome = () => {
     { icon: Coffee, number: '∞', label: 'Coffee Cups', gradient: 'from-pink-400 via-rose-500 to-red-500', delay: 0.3 },
   ]
 
+  const getSkillLevel = (level) => {
+    if (level >= 90) return 'Expert';
+    if (level >= 80) return 'Advanced';
+    if (level >= 70) return 'Intermediate';
+    return 'Beginner';
+  };
+
   const techStack = [
     { name: 'React', icon: '⚛️', level: 95, color: 'from-cyan-400 to-blue-500' },
     { name: 'Node.js', icon: '🟢', level: 90, color: 'from-green-400 to-emerald-500' },
@@ -48,29 +55,33 @@ const EnhancedHome = () => {
   ]
 
   const features = [
-    { 
-      icon: Zap, 
-      title: 'Lightning Fast', 
+    {
+      icon: Zap,
+      title: 'Lightning Fast',
       desc: 'Optimized performance with modern frameworks',
-      gradient: 'from-yellow-400 to-orange-500'
+      gradient: 'from-yellow-400 to-orange-500',
+      level: 95
     },
-    { 
-      icon: Heart, 
-      title: 'User-Centered', 
+    {
+      icon: Heart,
+      title: 'User-Centered',
       desc: 'Beautiful UX that users love and remember',
-      gradient: 'from-pink-400 to-red-500'
+      gradient: 'from-pink-400 to-red-500',
+      level: 90
     },
-    { 
-      icon: Star, 
-      title: 'Quality Code', 
+    {
+      icon: Star,
+      title: 'Quality Code',
       desc: 'Clean, maintainable, and scalable solutions',
-      gradient: 'from-purple-400 to-pink-500'
+      gradient: 'from-purple-400 to-pink-500',
+      level: 95
     },
-    { 
-      icon: Globe, 
-      title: 'Global Ready', 
+    {
+      icon: Globe,
+      title: 'Global Ready',
       desc: 'Scalable applications for worldwide reach',
-      gradient: 'from-blue-400 to-cyan-500'
+      gradient: 'from-blue-400 to-cyan-500',
+      level: 85
     }
   ]
 
@@ -393,26 +404,16 @@ const EnhancedHome = () => {
                 transition={{ delay: index * 0.1 }}
                 whileHover={{ scale: 1.05, y: -5 }}
               >
-                <Card className="p-3 xs:p-4 sm:p-6 group hover:shadow-2xl transition-all duration-500 h-full">
-                  <div className="text-center mb-4">
+                <Card className={`p-3 xs:p-4 sm:p-6 group hover:shadow-2xl transition-all duration-500 h-full relative overflow-hidden bg-gradient-to-br from-white/50 to-gray-50/50 dark:from-gray-800/50 dark:to-gray-900/50`}>
+                  <div className={`absolute inset-0 bg-gradient-to-br ${tech.color} opacity-0 group-hover:opacity-5 transition-opacity duration-500`}></div>
+                  <div className="relative z-10 text-center">
                     <div className="text-xl xs:text-2xl sm:text-3xl mb-2">{tech.icon}</div>
-                    <h3 className="text-sm xs:text-base sm:text-lg md:text-xl font-bold group-hover:text-primary transition-colors">
+                    <h3 className="text-sm xs:text-base sm:text-lg md:text-xl font-bold group-hover:text-primary transition-colors mb-3">
                       {tech.name}
                     </h3>
-                  </div>
-                  <div className="w-full bg-gray-300 dark:bg-gray-700 rounded-full h-1.5 xs:h-2 sm:h-3 overflow-hidden">
-                    <motion.div
-                      initial={{ width: 0 }}
-                      whileInView={{ width: `${tech.level}%` }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 1.5, delay: index * 0.1 }}
-                      className={`h-full bg-gradient-to-r ${tech.color} rounded-full relative`}
-                    >
-                      <div className="absolute inset-0 bg-white/20 animate-pulse"></div>
-                    </motion.div>
-                  </div>
-                  <div className="text-center mt-2">
-                    <span className="text-xs text-gray-600 dark:text-gray-400">{tech.level}%</span>
+                    <span className={`inline-block px-4 py-2 text-xs font-semibold rounded-full bg-gradient-to-r ${tech.color} text-white shadow-lg transform group-hover:scale-105 transition-transform duration-300`}>
+                      {getSkillLevel(tech.level)}
+                    </span>
                   </div>
                 </Card>
               </motion.div>
@@ -445,17 +446,23 @@ const EnhancedHome = () => {
                 transition={{ delay: index * 0.2 }}
                 whileHover={{ y: -10, scale: 1.02 }}
               >
-                <Card className="p-4 xs:p-6 sm:p-8 text-center group hover:shadow-2xl hover:shadow-primary/10 transition-all duration-500 h-full">
-                  <motion.div
-                    whileHover={{ scale: 1.1, rotate: 5 }}
-                    className={`inline-flex p-3 xs:p-4 rounded-2xl bg-gradient-to-br ${feature.gradient} mb-4 xs:mb-6 shadow-lg`}
-                  >
-                    <feature.icon className="text-white" size={24} />
-                  </motion.div>
-                  <h3 className="text-lg xs:text-xl sm:text-2xl font-bold mb-3 xs:mb-4 group-hover:text-primary transition-colors">
-                    {feature.title}
-                  </h3>
-                  <p className="text-gray-600 dark:text-gray-400 leading-relaxed text-xs xs:text-sm sm:text-base">{feature.desc}</p>
+                <Card className={`p-4 xs:p-6 sm:p-8 text-center group hover:shadow-2xl hover:shadow-primary/10 transition-all duration-500 h-full relative overflow-hidden bg-gradient-to-br from-white/50 to-gray-50/50 dark:from-gray-800/50 dark:to-gray-900/50`}>
+                  <div className={`absolute inset-0 bg-gradient-to-br ${feature.gradient} opacity-0 group-hover:opacity-5 transition-opacity duration-500`}></div>
+                  <div className="relative z-10">
+                    <motion.div
+                      whileHover={{ scale: 1.1, rotate: 5 }}
+                      className={`inline-flex p-3 xs:p-4 rounded-2xl bg-gradient-to-br ${feature.gradient} mb-4 xs:mb-6 shadow-lg`}
+                    >
+                      <feature.icon className="text-white" size={24} />
+                    </motion.div>
+                    <h3 className="text-lg xs:text-xl sm:text-2xl font-bold mb-3 xs:mb-4 group-hover:text-primary transition-colors">
+                      {feature.title}
+                    </h3>
+                    <p className="text-gray-600 dark:text-gray-400 leading-relaxed text-xs xs:text-sm sm:text-base mb-4">{feature.desc}</p>
+                    <span className={`inline-block px-4 py-2 text-xs font-semibold rounded-full bg-gradient-to-r ${feature.gradient} text-white shadow-lg transform group-hover:scale-105 transition-transform duration-300`}>
+                      {getSkillLevel(feature.level)}
+                    </span>
+                  </div>
                 </Card>
               </motion.div>
             ))}

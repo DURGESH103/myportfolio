@@ -11,6 +11,7 @@ const Navbar = ({ darkMode, setDarkMode }) => {
     { name: 'Home', path: '/' },
     { name: 'About', path: '/about' },
     { name: 'Projects', path: '/projects' },
+    { name: 'Workflow', path: '/workflow' },
     { name: 'Certifications', path: '/certifications' },
     { name: 'Contact', path: '/contact' },
   ]
