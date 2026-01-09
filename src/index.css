@@ -4,24 +4,112 @@
 @tailwind components;
 @tailwind utilities;
 
-* {
+/* CSS Reset & Base Styles */
+*,
+*::before,
+*::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
 html {
+  font-size: 16px; /* Base font size */
   scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
 }
 
 body {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 1rem;
+  line-height: 1.6;
   transition: all 0.3s ease;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+/* Container & Layout Fixes */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* Prevent horizontal overflow */
+.overflow-x-hidden {
+  overflow-x: hidden;
+}
+
+/* Responsive Typography */
+.text-responsive {
+  font-size: clamp(0.875rem, 2.5vw, 1rem);
+}
+
+.text-responsive-lg {
+  font-size: clamp(1.125rem, 3vw, 1.25rem);
+}
+
+.text-responsive-xl {
+  font-size: clamp(1.25rem, 4vw, 1.5rem);
+}
+
+.text-responsive-2xl {
+  font-size: clamp(1.5rem, 5vw, 2rem);
+}
+
+.text-responsive-3xl {
+  font-size: clamp(1.875rem, 6vw, 2.5rem);
+}
+
+.text-responsive-4xl {
+  font-size: clamp(2.25rem, 7vw, 3rem);
+}
+
+/* Fix for large screens */
+@media (min-width: 1920px) {
+  html {
+    font-size: 18px;
+  }
+  
+  .container {
+    max-width: 1400px;
+  }
+}
+
+/* Desktop scaling fixes */
+@media (min-width: 1440px) {
+  .text-responsive-4xl {
+    font-size: clamp(2.25rem, 5vw, 2.75rem);
+  }
+  
+  .text-responsive-3xl {
+    font-size: clamp(1.875rem, 4vw, 2.25rem);
+  }
+}
+
+/* Tablet optimizations */
+@media (min-width: 768px) and (max-width: 1023px) {
+  html {
+    font-size: 15px;
+  }
+}
+
+/* Mobile optimizations */
+@media (max-width: 767px) {
+  html {
+    font-size: 14px;
+  }
+  
+  body {
+    font-size: 0.875rem;
+  }
 }
 
 /* Custom scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 0.5rem;
 }
 
 ::-webkit-scrollbar-track {
@@ -39,13 +127,13 @@ body {
 /* Glassmorphism effect */
 .glass {
   background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(0.625rem);
   border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .glass-dark {
   background: rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(0.625rem);
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
@@ -59,8 +147,8 @@ body {
 
 /* Hover glow effect */
 .hover-glow:hover {
-  box-shadow: 0 0 20px rgba(99, 102, 241, 0.4);
-  transform: translateY(-2px);
+  box-shadow: 0 0 1.25rem rgba(99, 102, 241, 0.4);
+  transform: translateY(-0.125rem);
   transition: all 0.3s ease;
 }
 
@@ -89,7 +177,7 @@ body {
 /* Page transitions */
 .page-transition-enter {
   opacity: 0;
-  transform: translateX(100px);
+  transform: translateX(6.25rem);
 }
 
 .page-transition-enter-active {
@@ -104,7 +192,7 @@ body {
 
 .page-transition-exit-active {
   opacity: 0;
-  transform: translateX(-100px);
+  transform: translateX(-6.25rem);
   transition: opacity 300ms, transform 300ms;
 }
 
@@ -138,15 +226,15 @@ body {
 }
 
 /* Mobile particle optimization */
-@media (max-width: 768px) {
+@media (max-width: 48rem) {
   #tsparticles {
-    opacity: 0.7; /* Reduce particle intensity on mobile */
+    opacity: 0.7;
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 30rem) {
   #tsparticles {
-    opacity: 0.5; /* Further reduce on small screens */
+    opacity: 0.5;
   }
 }
 
@@ -165,10 +253,10 @@ body {
 /* Mobile-optimized animations */
 @keyframes mobile-float {
   0%, 100% {
-    transform: translateY(0px);
+    transform: translateY(0);
   }
   50% {
-    transform: translateY(-10px);
+    transform: translateY(-0.625rem);
   }
 }
 
@@ -209,10 +297,10 @@ body {
 
 @keyframes float-up-down {
   0%, 100% {
-    transform: translateY(0px);
+    transform: translateY(0);
   }
   50% {
-    transform: translateY(-20px);
+    transform: translateY(-1.25rem);
   }
 }
 
@@ -262,16 +350,16 @@ body {
 /* Glass morphism enhanced */
 .glass-card {
   background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(20px);
+  backdrop-filter: blur(1.25rem);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0.5rem 2rem rgba(0, 0, 0, 0.1);
 }
 
 /* Mobile-optimized glass effect */
-@media (max-width: 768px) {
+@media (max-width: 48rem) {
   .glass-card {
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(0.75rem);
+    -webkit-backdrop-filter: blur(0.75rem);
     background: rgba(255, 255, 255, 0.08);
   }
 }
@@ -289,61 +377,14 @@ body {
   }
 }
 
-/* Responsive text sizes */
-@media (max-width: 640px) {
-  .text-responsive-xl {
-    font-size: 1.5rem;
-    line-height: 2rem;
-  }
-  
-  .text-responsive-2xl {
-    font-size: 2rem;
-    line-height: 2.5rem;
-  }
-  
-  .text-responsive-4xl {
-    font-size: 2.5rem;
-    line-height: 3rem;
-  }
-  
-  /* Fluid typography for mobile */
-  .fluid-text-sm {
-    font-size: clamp(0.875rem, 2.5vw, 1rem);
-  }
-  
-  .fluid-text-base {
-    font-size: clamp(1rem, 3vw, 1.125rem);
-  }
-  
-  .fluid-text-lg {
-    font-size: clamp(1.125rem, 3.5vw, 1.25rem);
-  }
-  
-  .fluid-text-xl {
-    font-size: clamp(1.25rem, 4vw, 1.5rem);
-  }
-  
-  .fluid-text-2xl {
-    font-size: clamp(1.5rem, 5vw, 2rem);
-  }
-  
-  .fluid-text-3xl {
-    font-size: clamp(1.875rem, 6vw, 2.5rem);
-  }
-  
-  .fluid-text-4xl {
-    font-size: clamp(2.25rem, 7vw, 3rem);
-  }
-}
-
 /* Enhanced hover effects */
 .hover-lift {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .hover-lift:hover {
-  transform: translateY(-8px) scale(1.02);
-  box-shadow: 0 20px 40px rgba(99, 102, 241, 0.15);
+  transform: translateY(-0.5rem) scale(1.02);
+  box-shadow: 0 1.25rem 2.5rem rgba(99, 102, 241, 0.15);
 }
 
 /* Mobile-friendly hover effects */
@@ -358,7 +399,6 @@ body {
     transition: transform 0.1s;
   }
   
-  /* Disable hover animations on touch devices */
   .no-touch-hover:hover {
     transform: none;
     box-shadow: none;
@@ -376,31 +416,28 @@ body {
 }
 
 /* Mobile performance optimizations */
-@media (max-width: 768px) {
-  /* Reduce animations on mobile for better performance */
+@media (max-width: 48rem) {
   .mobile-reduce-motion {
     animation-duration: 0.5s;
     transition-duration: 0.2s;
   }
   
-  /* Optimize blur effects for mobile */
   .mobile-blur {
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(0.5rem);
+    -webkit-backdrop-filter: blur(0.5rem);
   }
   
-  /* Mobile-optimized shadows */
   .mobile-shadow {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.1);
   }
   
   .mobile-shadow-lg {
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.15);
   }
 }
 
 /* Mobile optimizations */
-@media (max-width: 768px) {
+@media (max-width: 48rem) {
   .mobile-padding {
     padding-left: 1rem;
     padding-right: 1rem;
@@ -414,7 +451,6 @@ body {
     width: 100%;
   }
   
-  /* Mobile hero section optimizations */
   .mobile-hero-spacing {
     padding-top: 2rem;
     padding-bottom: 2rem;
@@ -435,23 +471,21 @@ body {
     line-height: 1.5;
   }
   
-  /* Touch-friendly buttons */
   .mobile-button {
-    min-height: 48px;
-    padding: 12px 20px;
-    font-size: 16px; /* Prevents zoom on iOS */
+    min-height: 3rem;
+    padding: 0.75rem 1.25rem;
+    font-size: 1rem;
   }
   
-  /* Improved tap targets */
   .mobile-social-link {
-    min-width: 48px;
-    min-height: 48px;
-    padding: 12px;
+    min-width: 3rem;
+    min-height: 3rem;
+    padding: 0.75rem;
   }
 }
 
 /* Extra small devices */
-@media (max-width: 375px) {
+@media (max-width: 23.4375rem) {
   .xs-hero-spacing {
     padding-top: 1.5rem;
     padding-bottom: 1.5rem;
@@ -462,13 +496,106 @@ body {
   }
   
   .xs-button {
-    padding: 10px 16px;
-    font-size: 14px;
+    padding: 0.625rem 1rem;
+    font-size: 0.875rem;
   }
 }
 
+/* Production Deployment Fixes */
+
+/* Prevent zoom on iOS Safari */
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="password"],
+textarea,
+select {
+  font-size: 1rem !important;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+/* Fix for production font loading */
+@font-face {
+  font-family: 'Inter';
+  font-display: swap;
+  src: local('Inter'), url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+}
+
+@font-face {
+  font-family: 'Poppins';
+  font-display: swap;
+  src: local('Poppins'), url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+}
+
+/* Render.com specific fixes */
+.render-fix {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Container max-width fixes for large screens */
+.max-container {
+  max-width: min(100vw, 1400px);
+  margin: 0 auto;
+}
+
+/* Prevent layout shift */
+.prevent-shift {
+  contain: layout style paint;
+}
+
+/* Critical CSS for above-the-fold content */
+.critical-section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Fix for production image loading */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Smooth scrolling for all browsers */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Fix for production animations */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Production performance optimizations */
+.gpu-accelerated {
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+/* Fix for production text rendering */
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
 /* Landscape mobile optimization */
-@media (max-height: 500px) and (orientation: landscape) {
+@media (max-height: 31.25rem) and (orientation: landscape) {
   .landscape-hero {
     min-height: 100vh;
     padding-top: 1rem;
@@ -480,7 +607,7 @@ body {
   }
   
   .landscape-profile {
-    width: 200px;
-    height: 200px;
+    width: 12.5rem;
+    height: 12.5rem;
   }
 }

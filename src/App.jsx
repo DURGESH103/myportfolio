@@ -6,6 +6,7 @@ import ScrollToTop from './components/ScrollToTop'
 import SmoothScroll from './components/SmoothScroll'
 import ProgressBar from './components/ProgressBar'
 import ErrorBoundary from './components/ErrorBoundary'
+import ResponsiveContainer from './components/ResponsiveContainer'
 import EnhancedHome from './pages/EnhancedHome'
 import About from './pages/About'
 import Projects from './pages/Projects'
@@ -32,27 +33,31 @@ function App() {
 
   return (
     <ErrorBoundary>
-      <div className={`min-h-screen transition-colors duration-300 ${
-        darkMode ? 'bg-dark text-text-light' : 'bg-light text-text-dark'
-      }`}>
-        <Router>
-        <ProgressBar />
-        <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
-        <Routes>
-          <Route path="/" element={<EnhancedHome />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/projects" element={<Projects />} />
-          <Route path="/project/:id" element={<ProjectDetails />} />
-          <Route path="/certifications" element={<Certifications />} />
-          <Route path="/workflow" element={<Workflow />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/admin" element={<AdminPanel />} />
-        </Routes>
-        <Footer />
-        <ScrollToTop />
-        <SmoothScroll />
-        </Router>
-      </div>
+      <ResponsiveContainer>
+        <div className={`min-h-screen transition-colors duration-300 overflow-x-hidden ${
+          darkMode ? 'bg-dark text-text-light' : 'bg-light text-text-dark'
+        }`}>
+          <Router>
+            <ProgressBar />
+            <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
+            <main className="w-full max-w-full">
+              <Routes>
+                <Route path="/" element={<EnhancedHome />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/projects" element={<Projects />} />
+                <Route path="/project/:id" element={<ProjectDetails />} />
+                <Route path="/certifications" element={<Certifications />} />
+                <Route path="/workflow" element={<Workflow />} />
+                <Route path="/contact" element={<Contact />} />
+                <Route path="/admin" element={<AdminPanel />} />
+              </Routes>
+            </main>
+            <Footer />
+            <ScrollToTop />
+            <SmoothScroll />
+          </Router>
+        </div>
+      </ResponsiveContainer>
     </ErrorBoundary>
   )
 }
