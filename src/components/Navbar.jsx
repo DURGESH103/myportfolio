@@ -1,10 +1,12 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { Menu, X, Sun, Moon } from 'lucide-react'
 
 const Navbar = ({ darkMode, setDarkMode }) => {
   const [isOpen, setIsOpen] = useState(false)
+  const [isVisible, setIsVisible] = useState(true)
+  const [lastScrollY, setLastScrollY] = useState(0)
   const location = useLocation()
 
   const navItems = [
@@ -16,10 +18,30 @@ const Navbar = ({ darkMode, setDarkMode }) => {
     { name: 'Contact', path: '/contact' },
   ]
 
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY
+      
+      if (currentScrollY < 10) {
+        setIsVisible(true)
+      } else if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        setIsVisible(false)
+      } else if (currentScrollY < lastScrollY) {
+        setIsVisible(true)
+      }
+      
+      setLastScrollY(currentScrollY)
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [lastScrollY])
+
   return (
     <motion.nav
       initial={{ y: -100 }}
-      animate={{ y: 0 }}
+      animate={{ y: isVisible ? 0 : -100 }}
+      transition={{ duration: 0.3, ease: 'easeInOut' }}
       className="fixed top-0 w-full z-50 glass backdrop-blur-md border-b border-white/10"
     >
       <div className="max-w-7xl mx-auto px-3 xs:px-4 sm:px-6 lg:px-8">
